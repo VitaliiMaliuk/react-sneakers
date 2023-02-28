@@ -35,8 +35,6 @@ header {
   }
 }
 
-
-
 // .button {
 //   background: #ffffff;
 //   border: 1px solid #f2f2f2;
@@ -51,6 +49,15 @@ header {
   border: 1px solid #f3f3f3;
   border-radius: 10px;
   padding: 0px 15px;
+  position: relative;
+
+  .clear {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 14px;
+    right: 15px;
+  }
 
   input {
     border: 0;
@@ -91,6 +98,35 @@ header {
   }
 }
 
+.cartEmpty {
+  text-align: center;
+  margin-top: 200px;
+
+  p {
+    width: 280px;
+    line-height: 24px;
+  }
+
+  .greenButton {
+    width: 245px;
+    margin-top: 20px;
+
+    &:hover {
+      img {
+        transform: rotate(180deg) translateX(3px);
+      }
+    }
+
+    img {
+      position: relative;
+      top: 1px;
+      transform: rotate(180deg);
+      margin-right: 15px;
+      transition: transform 0.15s ease-in-out;
+    }
+  }
+}
+
 .cartTotalBlock {
   ul {
     margin-bottom: 40px !important;
@@ -117,7 +153,7 @@ header {
         transform: translateX(5px);
       }
     }
-    
+
     img {
       position: absolute;
       right: 30px;
@@ -128,27 +164,25 @@ header {
 }
 
 .greenButton {
-    width: 100%;
-    height: 55px;
-    background: #9dd458;
-    border-radius: 18px;
-    border: 0;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.1s ease-in-out;
+  width: 100%;
+  height: 55px;
+  background: #9dd458;
+  border-radius: 18px;
+  border: 0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.1s ease-in-out;
 
-    
-
-    &:hover {
-      background: lighten(#9dd458, 5%);
-    }
-
-    &:active {
-      background: darken(#9dd458, 5%);
-    }
+  &:hover {
+    background: lighten(#9dd458, 5%);
   }
+
+  &:active {
+    background: darken(#9dd458, 5%);
+  }
+}
 
 .cartItem {
   border: 1px solid #f3f3f3;
