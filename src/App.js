@@ -60,6 +60,9 @@ function App() {
         axios.delete(
           `https://63fe2268370fe830d9cee7c8.mockapi.io/favorites/${obj.id}`
         );
+        setFavorites((prev) =>
+          prev.filter((item) => Number(item.id) !== Number(obj.id))
+        );
       } else {
         const { data } = await axios.post(
           "https://63fe2268370fe830d9cee7c8.mockapi.io/favorites",
@@ -82,7 +85,9 @@ function App() {
   };
 
   return (
-    <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded, onAddToFavorite }}>
+    <AppContext.Provider
+      value={{ items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems }}
+    >
       <div className="wrapper clear">
         {cartOpened && (
           <Drawer
@@ -110,11 +115,7 @@ function App() {
             }
             exact
           />
-          <Route
-            path="/favorites"
-            element={<Favorites />}
-            exact
-          />
+          <Route path="/favorites" element={<Favorites />} exact />
         </Routes>
       </div>
     </AppContext.Provider>
