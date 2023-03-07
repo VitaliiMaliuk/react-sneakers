@@ -2,9 +2,10 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import axios from "axios";
 import Header from "./components/Header";
-import Drawer from "./components/Drawer";
+import Drawer from "./components/Drawer/index";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
+import Orders from "./pages/Orders";
 import AppContext from "./context";
 
 function App() {
@@ -86,16 +87,24 @@ function App() {
 
   return (
     <AppContext.Provider
-      value={{ items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems }}
+      value={{
+        items,
+        cartItems,
+        favorites,
+        isItemAdded,
+        onAddToFavorite,
+        onAddToCart,
+        setCartOpened,
+        setCartItems,
+      }}
     >
       <div className="wrapper clear">
-        {cartOpened && (
-          <Drawer
+      <Drawer
             items={cartItems}
             onClose={() => setCartOpened(false)}
             onRemove={onRemoveItem}
+            opened={cartOpened}
           />
-        )}
 
         <Header onClickCart={() => setCartOpened(true)} />
         <Routes>
@@ -116,6 +125,7 @@ function App() {
             exact
           />
           <Route path="/favorites" element={<Favorites />} exact />
+          <Route path="/orders" element={<Orders />} exact />
         </Routes>
       </div>
     </AppContext.Provider>

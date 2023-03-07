@@ -3,7 +3,6 @@ import ContentLoader from "react-content-loader";
 import AppContext from "../../context";
 import styles from "./Card.module.scss";
 
-
 function Card({
   id,
   title,
@@ -45,15 +44,17 @@ function Card({
         </ContentLoader>
       ) : (
         <>
-          <div className={styles.favorite} onClick={onFavorite}>
-            <img
-              src={
-                isFavorite ? "/img/heart-liked.svg" : "/img/heart-unliked.svg"
-              }
-              alt="Heart Unliked"
-              onClick={onClickFavorite}
-            />
-          </div>
+          {onFavorite && (
+            <div className={styles.favorite} onClick={onFavorite}>
+              <img
+                src={
+                  isFavorite ? "/img/heart-liked.svg" : "/img/heart-unliked.svg"
+                }
+                alt="Heart Unliked"
+                onClick={onClickFavorite}
+              />
+            </div>
+          )}
 
           <img width={133} height={112} src={imageUrl} alt="Sneakers" />
           <h5>{title}</h5>
@@ -63,12 +64,16 @@ function Card({
               <b>{price} грн.</b>
             </div>
 
-            <img
-              className={styles.plus}
-              src={isItemAdded(id) ? "/img/btn-checked.svg" : "/img/btn-plus.svg"}
-              alt="Plus"
-              onClick={onClickPlus}
-            />
+            {onPlus && (
+              <img
+                className={styles.plus}
+                src={
+                  isItemAdded(id) ? "/img/btn-checked.svg" : "/img/btn-plus.svg"
+                }
+                alt="Plus"
+                onClick={onClickPlus}
+              />
+            )}
           </div>
         </>
       )}

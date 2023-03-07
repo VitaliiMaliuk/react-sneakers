@@ -1,12 +1,15 @@
 import React from "react";
-import Info from "./Info";
-import AppContext from "../context";
+import Info from "../Info";
 import axios from "axios";
+
+import { useCart } from "../../hooks/useCart";
+
+import styles from "./Drawer.module.scss";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function Drawer({ onClose, onRemove, items = [] }) {
-  const { cartItems, setCartItems } = React.useContext(AppContext);
+function Drawer({ onClose, onRemove, items = [], opened }) {
+  const { cartItems, setCartItems, totalPrice } = useCart();
   const [orderId, setOrderId] = React.useState(null);
   const [isOrderComplete, setIsOrderComplete] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -20,25 +23,28 @@ function Drawer({ onClose, onRemove, items = [] }) {
           items: cartItems,
         }
       );
-      
+
       setOrderId(data.id);
       setIsOrderComplete(true);
       setCartItems([]);
 
-      for(let i = 0; i < cartItems.length; i++) {
+      for (let i = 0; i < cartItems.length; i++) {
         const item = cartItems[i];
         await axios.delete(
-            "https://63fcb13f859df29986c25472.mockapi.io/cart/" + item.id);
+          "https://63fcb13f859df29986c25472.mockapi.io/cart/" + item.id
+        );
         await delay(1000);
-        }
-      } catch (error) {
+      }
+    } catch (error) {
       alert("Error with order!");
     }
     setIsLoading(false);
   };
+
   return (
-    <div className="overlay">
-      <div className="drawer">
+
+    <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ""}`}>
+      <div className={styles.drawer}>
         <h2 className="d-flex justify-between mb-30">
           Cart
           <img
@@ -79,12 +85,12 @@ function Drawer({ onClose, onRemove, items = [] }) {
                 <li>
                   <span>Total:</span>
                   <div></div>
-                  <b>21 498 грн.</b>
+                  <b>{totalPrice} грн.</b>
                 </li>
                 <li>
                   <span>Tax 5%:</span>
                   <div></div>
-                  <b>1074 грн. </b>
+                  <b>{totalPrice * 0.05} грн. </b>
                 </li>
               </ul>
               <button
