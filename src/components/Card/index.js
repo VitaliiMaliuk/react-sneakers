@@ -15,13 +15,14 @@ function Card({
 }) {
   const { isItemAdded } = React.useContext(AppContext);
   const [isFavorite, setIsFavorite] = React.useState(favorited);
+  const obj = { id, parentId: id, title, imageUrl, price };
 
   const onClickPlus = () => {
-    onPlus({ id, title, imageUrl, price });
+    onPlus(obj);
   };
 
   const onClickFavorite = () => {
-    onFavorite({ id, title, imageUrl, price });
+    onFavorite(obj);
     setIsFavorite(!isFavorite);
   };
 
@@ -45,13 +46,12 @@ function Card({
       ) : (
         <>
           {onFavorite && (
-            <div className={styles.favorite} onClick={onFavorite}>
+            <div className={styles.favorite} onClick={onClickFavorite}>
               <img
                 src={
                   isFavorite ? "/img/heart-liked.svg" : "/img/heart-unliked.svg"
                 }
                 alt="Heart Unliked"
-                onClick={onClickFavorite}
               />
             </div>
           )}
@@ -82,3 +82,4 @@ function Card({
 }
 
 export default Card;
+

@@ -15,22 +15,19 @@ function Home({
   
   const renderItems = () => {
     const filtredItems = items.filter((item) =>
-      item.title.toLowerCase().includes(searchValue.toLowerCase())
+      item.title.toLowerCase().includes(searchValue.toLowerCase()),
     );
     return (
       isLoading
-        ? [...Array(8).fill(<Card isLoading={isLoading} />)]
+        ? [...Array(8)]
         : filtredItems
-    ).map((item) => (
+    ).map((item, index) => (
       <Card
-        key={item.title}
-        title={item.title}
-        imageUrl={item.imageUrl}
-        price={item.price}
+        key={index}
         onFavorite={(obj) => onAddToFavorite(obj)}
         onPlus={(obj) => onAddToCart(obj)}
-        id={item.id}
         loading={isLoading}
+        {...item}
       />
     ));
   };
