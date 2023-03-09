@@ -156,12 +156,12 @@ function App() {
             exact
           />
           <Route
-            path={process.env.PUBLIC_URL + "favorites"}
+            path={process.env.PUBLIC_URL + "/favorites"}
             element={<Favorites />}
             exact
           />
           <Route
-            path={process.env.PUBLIC_URL + "orders"}
+            path={process.env.PUBLIC_URL + "/orders"}
             element={<Orders />}
             exact
           />
